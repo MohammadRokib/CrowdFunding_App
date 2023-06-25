@@ -15,6 +15,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const chainId = network.config.chainId;
 
     if (developmentChains.includes(network.name)) {
+        const ethUsdPriceFeed = await deployments.get("MockV3Aggregator");
+        ethUsdPriceFeedAddress = ethUsdPriceFeed.address;
     } else {
         ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"];
     }
@@ -25,10 +27,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1,
     });
-    console.log("Finished dploying");
-    console.log("_______________________________");
+    log("Finished dploying");
+    log("_______________________________");
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         await verify(fundMe.address, [ethUsdPriceFeedAddress]);
     }
 };
+
+module.exports.tags = ["all", "fundme"];
