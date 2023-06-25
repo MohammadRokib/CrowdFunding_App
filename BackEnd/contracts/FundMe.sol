@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.7;
-import "./PriceCoverter.sol";
+import "./PriceConverter.sol";
 
 error FundMe__NotOwner();
 
@@ -32,9 +32,9 @@ contract FundMe {
     }
     
     function withdraw() public onlyOwner{
-        uint256 private s = s_funders.length;
+        uint256 s = s_funders.length;
         for (uint256 i = 0; i < s; i++) {
-            s_addToAmount[funders[i]] = 0;
+            s_addToAmount[s_funders[i]] = 0;
         }
         s_funders = new address[](0);
         (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
