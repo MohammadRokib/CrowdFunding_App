@@ -6,19 +6,19 @@
 
 <a href="https://github.com/MohammadRokib/repo_name">
     <img src="images/metamask1.png" alt="Local nodes">
-</a>
+</a><br><br>
 
 - Open metamask in the browser and click on the red circle `denoted 1st` then click `Import account` `denoted 2nd`
 
 <a href="https://github.com/MohammadRokib/repo_name">
     <img src="images/metamask2.png" alt="Importing account">
-</a>
+</a><br><br>
 
 - Then paste the private key here and click `Import`
 
 <a href="https://github.com/MohammadRokib/repo_name">
     <img src="images/metamask3.png" alt="Entering private key">
-</a>
+</a><br><br>
 
 - Similarly import `Account-1`
 
@@ -26,22 +26,22 @@
 
 <a href="https://github.com/MohammadRokib/repo_name">
     <img src="images/metamask4.png" alt="Adding network">
-</a>
+</a><br><br>
 
 - Then click `Add network manually` on the bottom
 
 <a href="https://github.com/MohammadRokib/repo_name">
     <img src="images/metamask5.png" alt="Add network manually">
-</a>
+</a><br><br>
 
 - After that fill up all the information as shown in the picture and click `save`
 
 <a href="https://github.com/MohammadRokib/repo_name">
     <img src="images/metamask6.png" alt="Hardhat-Localhost configuration">
-</a>
+</a><br><br>
 
 - A prompt will come up click `Switch to Hardhat-Localhost`
 
 <a href="https://github.com/MohammadRokib/repo_name">
     <img src="images/metamask7.png" alt="Switch to Hardhat-Localhost">
-</a>
+</a><br><br>
