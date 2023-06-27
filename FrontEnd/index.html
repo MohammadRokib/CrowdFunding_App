@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>FundMe App</title>
+    <link rel="stylesheet" href="style.css">
+    <style></style>
 </head>
 <body>
-    
+    <script src="./index.js" type="module"></script>
+
+    <div class="fundBox">
+        <p>
+            Consider helping the people in need.
+        </p>
+        <div class="fund">
+            <input id="ethAmount" placeholder="Type eth amount at least 0.1">
+            <input id="fund" type="submit" value="Fund" style="background-color: #1F8E9E; font-size: 22px; color: white; cursor: pointer;">
+        </div>
+    </div>
+
+    <div class="withdrawBox">
+        <div class="withdraw">
+            <button id="connectButton">Connect</button>
+            <button id="balanceButton">Balance</button>
+            <button id="withdrawButton">Withdraw</button>
+        </div>
+    </div>
 </body>
 </html>
