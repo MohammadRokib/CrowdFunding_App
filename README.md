@@ -215,7 +215,7 @@ WARNING: These accounts, and their private keys, are publicly known.
 Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 ```
 
-- Then open `metamask` in your default browser and add `Hardhat-Localhost` network manually. Then import `Account-0` `Account-1` from above into your metamask. [See how]()
+- Then open `metamask` in your default browser and add `Hardhat-Localhost` network manually. Then import `Account-0` `Account-1` from above into your metamask. [See how](https://github.com/MohammadRokib/CrowdFunding_App/blob/main/metamask.md)
 
 - Open the `index.html` file with `vscode` and then open the file with `live server`. The page will come up in your default browser.
 
@@ -224,8 +224,6 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 - Select those accounts and click `next` in the bottom and then click `connect`. The accounts are connected successfully.
 
 - `Right click` on your mouse and click `inspect` then go to the `console` tab to see responses from backend.
-  
-  
 
 ### Interaction
 
