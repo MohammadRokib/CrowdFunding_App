@@ -4,6 +4,7 @@ pragma solidity ^0.8.7;
 import "./PriceConverter.sol";
 
 error FundMe__NotOwner();
+error FundMe__InsufficientBalance();
 
 contract FundMe {
 
@@ -30,8 +31,15 @@ contract FundMe {
         s_funders.push(msg.sender);
         s_addToAmount[msg.sender] += msg.value;
     }
+
+    function withdraw(uint256 amount) public onlyOwner{
+        if (amount > address(this).balance) revert FundMe__InsufficientBalance();
+
+        (bool callSuccess,) = payable(msg.sender).call{value: amount}("");
+        require(callSuccess, "Transaction Failed");
+    }
     
-    function withdraw() public onlyOwner{
+    function withdrawAll() public onlyOwner{
         uint256 s = s_funders.length;
         for (uint256 i = 0; i < s; i++) {
             s_addToAmount[s_funders[i]] = 0;

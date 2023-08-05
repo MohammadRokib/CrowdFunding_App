@@ -5,7 +5,7 @@ async function main() {
     const fundMe = await ethers.getContract("FundMe", deployer);
     
     console.log("Withdrawing.....");
-    const txResponse = await fundMe.withdraw("200000000000000000");
+    const txResponse = await fundMe.withdrawAll();
     const balance = await fundMe.provider.getBalance(fundMe.address);
     await txResponse.wait(1);
     
