@@ -4,144 +4,198 @@
 if (window.ethereum) {
     console.log("Metamask installed");
 } else {
-    console.log("metamsk not installed")
+    console.log("metamsk not installed");
 }
 
 const modalInfo = document.getElementById("modal-info");
-const notification = document.createElement('div');
+const notification = document.createElement("div");
 const modalBtn = document.getElementById("modal-btn");
 const fundBalance = document.getElementById("fund-balance");
 let tnxReceipt;
 
-document.getElementById("connect-btn").addEventListener("click", async function() {
-    if(window.ethereum) {
-        try {
-            await window.ethereum.request({ method: "eth_requestAccounts" });
-            const accounts = await window.ethereum.request({ method: "eth_accounts" });
+document
+    .getElementById("connect-btn")
+    .addEventListener("click", async function () {
+        if (window.ethereum) {
+            try {
+                await window.ethereum.request({
+                    method: "eth_requestAccounts",
+                });
+                const accounts = await window.ethereum.request({
+                    method: "eth_accounts",
+                });
 
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const balanceWei = await provider.getBalance(contractAddress);
-            const balance = balanceWei / 1e18;
+                const provider = new ethers.providers.Web3Provider(
+                    window.ethereum
+                );
+                const balanceWei = await provider.getBalance(contractAddress);
+                const balance = balanceWei / 1e18;
 
-            notification.innerHTML = `
+                notification.innerHTML = `
                 <div>
                     <h3>Connected with</h3>
                     <h5>${accounts[0]}</h5>
                 </div>
             `;
 
-            fundBalance.innerText = balance;
-            modalInfo.innerHTML = ``;
-            modalInfo.appendChild(notification);
-            modalBtn.click();
-        } catch (error) {
-            console.log(error);
-            notification.innerHTML = `<h3>Error</h3>`;
+                fundBalance.innerText = balance;
+                modalInfo.innerHTML = ``;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            } catch (error) {
+                console.log(error);
+                notification.innerHTML = `<h3>Error</h3>`;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            }
+        } else {
+            console.log("Install Metamask");
+            notification.innerHTML = `<h3>Install Metamask</h3>`;
             modalInfo.appendChild(notification);
             modalBtn.click();
         }
-    } else {
-        console.log("Install Metamask");
-        notification.innerHTML = `<h3>Install Metamask</h3>`;
-        modalInfo.appendChild(notification);
-        modalBtn.click();
-    }
-});
+    });
 
-document.getElementById("fund-btn").addEventListener("click", async function() {
-    const fundAmount = document.getElementById("fund-amount").value;
-    console.log(`Funding ${fundAmount} ETH`);
+document
+    .getElementById("fund-btn")
+    .addEventListener("click", async function () {
+        const fundAmount = document.getElementById("fund-amount").value;
+        console.log(`Funding ${fundAmount} ETH`);
 
-    if(window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = await provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, abi, signer);
+        if (window.ethereum) {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, abi, signer);
 
-        try {
-            const txRespose = await contract.fund({ value: ethers.utils.parseEther(fundAmount) });
-            await listenForTxMine(txRespose, provider);
-            const userFundWei = await contract.getAddToAmount(tnxReceipt.from);
-            const userFund = userFundWei / 1e18;
+            try {
+                const txResponse = await contract.fund({
+                    value: ethers.utils.parseEther(fundAmount),
+                });
+                await listenForTxMine(txResponse, provider);
+                const userFundWei = await contract.getAddToAmount(
+                    tnxReceipt.from
+                );
+                const userFund = userFundWei / 1e18;
 
-            const balanceWei = await provider.getBalance(contractAddress);
-            const balance = balanceWei / 1e18;
+                const balanceWei = await provider.getBalance(contractAddress);
+                const balance = balanceWei / 1e18;
 
-            console.log(`${tnxReceipt.from} funded ${fundAmount} ETH`)
-            notification.innerHTML = `
+                console.log(`${tnxReceipt.from} funded ${fundAmount} ETH`);
+                notification.innerHTML = `
                 <div>
                     <h3>${fundAmount} ETH funded</h3>
                     <h5>Total fund: ${userFund} ETH</h5>
                 </div>
             `;
-            fundBalance.innerText = balance;
-            
-            modalInfo.innerHTML = ``;
-            modalInfo.appendChild(notification);
-            modalBtn.click();
-        } catch (error) {
-            console.log(error);
-            notification.innerHTML = `<h3>Error</h3>`;
-            modalInfo.appendChild(notification);
-            modalBtn.click();
-        }
-    } else {
-        console.log("Install Metamask");
-        notification.innerHTML = `<h3>Install Metamask</h3>`;
-        modalInfo.appendChild(notification);
-        modalBtn.click();
-    }
-});
+                fundBalance.innerText = balance;
 
-document.getElementById("withdraw-btn").addEventListener("click", async function () {
-    console.log("Withdrawing funds");
-
-    if(window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = await provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, abi, signer);
-
-        try {
-            const txResponse = await contract.withdraw();
-            await listenForTxMine(txResponse, provider);
-
-            const balanceWei = await provider.getBalance(contractAddress);
-            const balance = balanceWei / 1e18;
-            
-            console.log("Withdraw Complete");
-            notification.innerHTML = `<h3>Withdraw Successful</h3>`;
-            fundBalance.innerText = balance;
-            // modalInfo.innerHTML = ``;
-            modalInfo.appendChild(notification);
-            modalBtn.click();
-
-        } catch (error) {
-            console.log(error);
-            notification.innerHTML = `<h3>Error</h3>`;
+                modalInfo.innerHTML = ``;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            } catch (error) {
+                console.log(error);
+                notification.innerHTML = `<h3>Error</h3>`;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            }
+        } else {
+            console.log("Install Metamask");
+            notification.innerHTML = `<h3>Install Metamask</h3>`;
             modalInfo.appendChild(notification);
             modalBtn.click();
         }
+    });
 
-    } else {
-        console.log("Install Metamask");
-        notification.innerHTML = `<h3>Install Metamask</h3>`;
-        modalInfo.appendChild(notification);
-        modalBtn.click();
-    }
-});
+document
+    .getElementById("withdrawAll-btn")
+    .addEventListener("click", async function () {
+        console.log("Withdrawing funds");
+
+        if (window.ethereum) {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, abi, signer);
+
+            try {
+                const txResponse = await contract.withdrawAll();
+                await listenForTxMine(txResponse, provider);
+
+                const balanceWei = await provider.getBalance(contractAddress);
+                const balance = balanceWei / 1e18;
+
+                console.log("Withdraw Complete");
+                notification.innerHTML = `<h3>Withdraw Successful</h3>`;
+                fundBalance.innerText = balance;
+                // modalInfo.innerHTML = ``;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            } catch (error) {
+                console.log(error);
+                notification.innerHTML = `<h3>Error</h3>`;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            }
+        } else {
+            console.log("Install Metamask");
+            notification.innerHTML = `<h3>Install Metamask</h3>`;
+            modalInfo.appendChild(notification);
+            modalBtn.click();
+        }
+    });
+
+document
+    .getElementById("withdraw-btn")
+    .addEventListener("click", async function () {
+        const withdrawAmountWei = document.getElementById("withdraw-amount").value;
+        const withdrawAmountETH = withdrawAmountWei * 1e18;
+        const withdrawAmount = withdrawAmountETH.toString();
+
+        console.log("Withdrawing funds");
+
+        if (window.ethereum) {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, abi, signer);
+
+            try {
+                const txResponse = await contract.withdraw(withdrawAmount);
+                await listenForTxMine(txResponse, provider);
+
+                const balanceWei = await provider.getBalance(contractAddress);
+                const balance = balanceWei / 1e18;
+
+                console.log("Withdraw Complete");
+                notification.innerHTML = `<h3>Withdraw Successful</h3>`;
+                fundBalance.innerText = balance;
+                // modalInfo.innerHTML = ``;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            } catch (error) {
+                console.log(error);
+                notification.innerHTML = `<h3>Error</h3>`;
+                modalInfo.appendChild(notification);
+                modalBtn.click();
+            }
+        } else {
+            console.log("Install Metamask");
+            notification.innerHTML = `<h3>Install Metamask</h3>`;
+            modalInfo.appendChild(notification);
+            modalBtn.click();
+        }
+    });
 
 function listenForTxMine(txRespose, provider) {
     console.log(`Mining ${txRespose.hash}`);
     return new Promise((resolve, reject) => {
         provider.once(txRespose.hash, (txReceipt) => {
             tnxReceipt = txReceipt;
-            console.log(`Completed with ${txReceipt.confirmations} confirmations`);
+            console.log(
+                `Completed with ${txReceipt.confirmations} confirmations`
+            );
             resolve();
         });
     });
 }
-
-
-
 
 // constants.js
 export const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
@@ -156,6 +210,11 @@ export const abi = [
         ],
         stateMutability: "nonpayable",
         type: "constructor",
+    },
+    {
+        inputs: [],
+        name: "FundMe__InsufficientBalance",
+        type: "error",
     },
     {
         inputs: [],
@@ -247,17 +306,26 @@ export const abi = [
         type: "function",
     },
     {
-        inputs: [],
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "amount",
+                type: "uint256",
+            },
+        ],
         name: "withdraw",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
     },
+    {
+        inputs: [],
+        name: "withdrawAll",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
 ];
-
-
-
-
 
 // ethers-5.6.esm.min.js
 var commonjsGlobal =

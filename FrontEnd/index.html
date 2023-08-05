@@ -19,51 +19,72 @@
     </header>
 
     <main>
-        <section class="container mt-4">
+        <section class="my-4 mx-5">
             <div class="row row-cols-1 row-cols-md-2 g-4">
+                
+                <!-- Thumbnail Start -->
                 <div class="col">
                   <div class="card text-center">
-                    <div class="card-body">
-                      <img class="img-fluid w-75" src="img/Coins-rafiki.svg" alt="">
+                    <div class="card-body px-5">
+                      <img class="img-fluid px-5" src="img/Coins-rafiki.svg" alt="">
                       <h5 class="card-title">Help the people in need</h5>
                       <h5>Total fund: <span id="fund-balance">X</span> ETH</h5>
                     </div>
                   </div>
                 </div>
+                <!-- Thumbnail End -->
+
+                <!-- Functionality Start -->
                 <div class="col">
                   <div class="card">
                     <div class="card-body p-4">
                       <div class="row row-cols-1 row-cols-md-1 g-4">
+                        
+                        <!-- Connect Start -->
                         <div class="col">
-                          <div class="card text-center">
+                          <div class="card text-center py-1">
                             <div class="card-body">
-                              <h5 class="card-title my-2">Connect Your Wallet to Fund</h5>
-                              <button id="connect-btn" type="button" class="btn btn-success my-2 px-5">Connect</button>
+                              <h5 class="card-title mb-3">Connect Your Wallet to Fund</h5>
+                              <button id="connect-btn" type="button" class="btn btn-success px-5">Connect</button>
                             </div>
                           </div>
                         </div>
+                        <!-- Connect End -->
+
+                        <!-- Fund Start -->
                         <div class="col">
-                          <div class="card text-center">
-                            <div class="card-body py-4">
-                              <div class="mb-2">
-                                <input class="text-center rounded w-75 my-2" type="text" name="" id="fund-amount" placeholder="0.1 ETH">
+                          <div class="card text-center py-1">
+                            <div class="card-body">
+                              <div class="">
+                                <input class="text-center rounded w-75" type="text" name="" id="fund-amount" placeholder="0.1 ETH">
                               </div>
-                              <button id="fund-btn" type="button" class="btn btn-success my-2 px-5">Fund</button>
+                              <button id="fund-btn" type="button" class="btn btn-success px-5 mt-3">Fund</button>
                             </div>
                           </div>
                         </div>
+                        <!-- Fund End -->
+                        
+                        <!-- Withdraw Start -->
                         <div class="col">
-                          <div class="card text-center">
+                          <div class="card text-center py-1">
                             <div class="card-body">
-                              <h5 class="card-title my-3">Collect your Funds</h5>
-                              <button id="withdraw-btn" type="button" class="btn btn-success my-3 px-5">Withdraw</button>
+                              <h5 class="card-title">Collect your Funds</h5>
+                              <div>
+                                <input class="text-center rounded w-75 mt-1 mb-3" type="text" name="" id="withdraw-amount" placeholder="Enter Withdraw amount">
+                              </div>
+                              <button id="withdraw-btn" type="button" class="btn btn-success px-4 me-2">Withdraw</button>
+                              <button id="withdrawAll-btn" type="button" class="btn btn-primary px-4 ms-2">Withdraw All</button>
                             </div>
                           </div>
                         </div>
+                        <!-- Withdraw End -->
+
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- Functionality End -->
+
             </div>
         </section>
 
